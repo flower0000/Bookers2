@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+   <header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!--navbarを子要素が横並びになる-->
+    <!--あくまでヘッダーの領域（箱の大きさ，文字色，背景色を決めているだけ）-->
+
+     <div class="container">
+
+      <%= link_to "Bookers", root_path, class:"navbar-brand" %>
+      <!--navbar-brandはサイト名を作成するときに使用するclass。左上に配置される感じ？-->
+      <!--navbar-brandとクラスを入力することで、親要素のnavタグのnavbar-darkが適用される-->
+
+       <% if user_signed_in? %>
+        <ul class="navbar-nav ml-auto list-unstyled">
+  <!--ml-auto（左寄せ等の移動はnavbar-navもセットで覚える）-->
+         <li class="navbar-brand p-8">
+          Home
+         </li>
+
+         <li class="navbar-brand p-8">
+          Users
+         </li>
+
+         <li class="navbar-brand p-8">
+          Books
+         </li>
+
+         <li class="navbar-brand p-8">
+         <%= link_to "logout", destroy_user_session_path, method: :delete, class:"text-white" %>
+         <!--[text-white]でリンクがある文字についても指定色にすることができる-->
+         </li>
+        </ul>
+      <% else %>
+        <ul class="navbar-nav ml-auto list-unstyled">
+  <!--listタグの点（リストマーカー）を削除するにはlist-unstyledを追加する-->
+         <li class="navbar-brand p-8">
+          Home
+         </li>
+
+         <li class="navbar-brand p-8">
+          About
+         </li>
+
+         <li class="navbar-brand p-8">
+          <%= link_to "login", new_user_session_path, class:"text-white" %>
+         </li>
+
+         <li class="navbar-brand p-8">
+          <%= link_to "sign up", new_user_registration_path, class:"text-white" %>
+         </li>
+        </ul>
+     <% end %>
+      </nav>
+      </div>
+     </header>
+  <%= yield %>
+     <footer>
+      <div class="container mt-5">
+  <!--マージン(m)が上側(top)に要素の基本サイズ*3(-5)作成されるよう命令-->
+       <div class="row">
+         <div class="mx-auto">
+  <!--マージンがx(左右に)auto(要素を真ん中配置)で作成されるよう命令-->
+           <p>CopyRight Infratop.inc</p>
+         </div>
+       </div>
+      </div>
+     </footer>
+
+  </body>
+</html>
