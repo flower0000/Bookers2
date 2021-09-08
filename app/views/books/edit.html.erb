@@ -1,0 +1,30 @@
+<!--投稿の編集用ページ-->
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <h1>Editing Book</h1>
+
+      <!--Editで投稿の更新失敗時のエラー出力箇所-->
+      <div>
+        <% if @book.errors.any? %><!--エラーの有無を確認．あれば実行-->
+          <div><%= flash[:alert] %></div>
+          <div>
+            <% @book.errors.full_messages.each do |message| %>
+              <%= message %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <!--エラー出力ここまで-->
+
+      <%= form_with model: @book, local:true do |f| %>
+      <div>Title</div>
+      <div class="form-group"><%= f.text_field :title, class:"form-control" %></div>
+      <div>Body</div>
+      <%= f.text_area :body %>
+      <br><%= f.submit 'Update Book', class:"btn btn-success" %></br>
+      <% end %>
+      <%=link_to "Show", book_path(@book.id) %><span>|</span><span><%=link_to "Back", books_path %></span>
+    </div>
+  </div>
+</div>

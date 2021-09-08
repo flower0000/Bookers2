@@ -1,0 +1,58 @@
+<!--投稿されたbook一覧-->
+<div class="container">
+
+ <div class="row">
+   <% if @book.errors.any? %><!--エラーの有無を確認．あれば実行-->
+     <div><%= flash[:alert] %></div>
+       <div>
+         <% @book.errors.full_messages.each do |message| %>
+           <%= message %>
+         <% end %>
+       </div>
+   <% end %>
+ </div>
+
+ <div class="row">
+  <!--部分テンプレート部-->
+  <%= render'books/create',user:@user,book:@book %>
+
+ <!--index右側-->
+  <div class="col-md-8 offset-md-1">
+  <h2>Books</h2>
+
+   <table class="table table-hover">
+     <thead><!--表のヘッダー-->
+       <tr>
+        <th></th><!--なぜここがこれで１つ分余白ができる？→1個分の項目の空きスペース(入れ物が)が何も入力しないthタグを入れることでできるため-->
+        <th class="header1">Title</th>
+        <th class="header2">Opinion</th>
+        <th colspan="3"></th>
+       </tr>
+     </thead>
+
+     <tbody>
+      <% @books.each do |book| %>
+       <tr>
+        <td>
+          <%= link_to user_path(book.user.id) do %>
+           <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, format: 'jpeg', fallback: "no_image.jpg", size:'40x40' %>
+        <!--1レコード分のデータに紐づいているuserの情報中でprofile_imageのカラムのデータを引っ張ってきたいとい状況-->
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to book_path(book.id) do %><!--変数に対して,もしくは画像に対してリンクを持たせたいときは32-34行目のような書き方を実施する-->
+            <%= book.title %>
+          <% end %>
+        </td>
+
+        <td><%= book.body %></td>
+       </tr>
+      <% end %>
+     </tbody>
+
+   </table>
+
+  </div>
+ </div>
+</div>

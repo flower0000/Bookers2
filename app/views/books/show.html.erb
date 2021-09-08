@@ -1,0 +1,43 @@
+<!--投稿後の詳細ページ用-->
+<div class="container">
+<div class="row">
+<!--部分テンプレート部-->
+<%= render'books/create',user:@user,book:@book %>
+
+ <div class="col-md-8 offset-md-1">
+
+  <h2>Book detail</h2>
+<!--詳細用　始-->
+  <div>
+   <table class="table">
+    <tbody>
+      <tr>
+       
+        <td>
+          <%= link_to user_path(@user.id) do %>
+           <%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: 'jpeg', fallback: "no_image.jpg", size:'40x40' %><br><%= @user.name %></br>
+          <% end %>
+        </td>
+
+        <td>
+         <%= link_to book_path(@bookdata.id) do %>
+           <%= @bookdata.title %>
+         <% end %>
+        </td>
+        
+        <td><%= @bookdata.body %></td>
+        <% if @bookdata.user == current_user %>
+          <td><%= link_to "Edit", edit_book_path(@bookdata.id), class: "btn btn-sm btn-success" %></td>
+          <td><%= link_to "Destroy", book_path(@bookdata.id),method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
+        <% end %>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  </div>
+ </div>
+ <!--詳細用 終-->
+
+ <!--メモ-->
+ <!--offset-md-1は隣に1カラムの余白を作成して位置を決定する-->

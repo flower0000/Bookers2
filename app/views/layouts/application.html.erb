@@ -27,19 +27,27 @@
         <ul class="navbar-nav ml-auto list-unstyled">
   <!--ml-auto（左寄せ等の移動はnavbar-navもセットで覚える）-->
          <li class="navbar-brand p-8">
-          Home
+           <%= link_to user_path(current_user.id), class:"text-white" do %>
+            <i class="fas fa-home"></i>Home
+           <% end %>
          </li>
 
          <li class="navbar-brand p-8">
-          Users
+          <%= link_to users_path, class:"text-white" do %>
+            <i class="fas fa-users"></i>Users
+          <% end %>
          </li>
 
          <li class="navbar-brand p-8">
-          Books
+           <%= link_to books_path, class:"text-white" do %>
+             <i class="fas fa-book-open"></i>Books
+           <% end %>
          </li>
 
          <li class="navbar-brand p-8">
-         <%= link_to "logout", destroy_user_session_path, method: :delete, class:"text-white" %>
+           <%= link_to destroy_user_session_path, method: :delete, class:"text-white" do %>
+             <i class="fas fa-sign-out-alt"></i>logout
+           <% end %>
          <!--[text-white]でリンクがある文字についても指定色にすることができる-->
          </li>
         </ul>
@@ -47,26 +55,42 @@
         <ul class="navbar-nav ml-auto list-unstyled">
   <!--listタグの点（リストマーカー）を削除するにはlist-unstyledを追加する-->
          <li class="navbar-brand p-8">
-          Home
+           <%= link_to root_path, class:"text-white" do %>
+             <i class="fas fa-home"></i>Home
+           <% end %>
          </li>
 
          <li class="navbar-brand p-8">
-          About
+           <%= link_to about_path, class:"text-white" do %>
+             <i class="fas fa-link"></i>About
+           <% end %>
+         </li>
+         
+         <li class="navbar-brand p-8">
+           <%= link_to new_user_registration_path, class:"text-white" do %>
+             <i class="fas fa-user-plus"></i>sign up
+           <% end %>
          </li>
 
          <li class="navbar-brand p-8">
-          <%= link_to "login", new_user_session_path, class:"text-white" %>
-         </li>
-
-         <li class="navbar-brand p-8">
-          <%= link_to "sign up", new_user_registration_path, class:"text-white" %>
+           <%= link_to new_user_session_path, class:"text-white" do %>
+             <i class="fas fa-sign-in-alt"></i>login
+           <% end %>
          </li>
         </ul>
      <% end %>
       </nav>
       </div>
      </header>
+     
+     <main>
+      <% if flash[:notice] %>
+        <div><%= flash[:notice] %></div>
+      <% end %>
+     </main>
+     
   <%= yield %>
+  
      <footer>
       <div class="container mt-5">
   <!--マージン(m)が上側(top)に要素の基本サイズ*3(-5)作成されるよう命令-->
